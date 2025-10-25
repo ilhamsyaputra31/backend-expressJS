@@ -1,0 +1,28 @@
+<%- include('partials/head', { title }) %>
+
+<div class="card">
+  <h1>Register</h1>
+  <div class="row mt12"><input id="name" placeholder="Full name" /></div>
+  <div class="row mt8"><input id="email" type="email" placeholder="Email" /></div>
+  <div class="row mt8"><input id="password" type="password" placeholder="Password (min 6)" /></div>
+  <div class="row mt16">
+    <button id="btnRegister">Create account</button>
+    <a href="/login"><button class="secondary" type="button">Back to Login</button></a>
+  </div>
+  <div id="msg" class="mt12 badge"></div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+document.getElementById('btnRegister').addEventListener('click', async () => {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const r = await window.register(name, email, password); // <- pakai window.register
+  document.getElementById('msg').textContent = r.ok ? 'Registered. You can login now.' : (r.message || 'Failed');
+  if (r.ok) setTimeout(() => location.href = '/login', 800);
+});
+</script>
+
+
+<%- include('partials/foot') %>

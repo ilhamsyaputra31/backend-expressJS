@@ -1,0 +1,25 @@
+<%- include('partials/head', { title }) %>
+
+<div class="card">
+  <h1>Login</h1>
+  <div class="row mt12"><input id="email" type="email" placeholder="Email" /></div>
+  <div class="row mt8"><input id="password" type="password" placeholder="Password" /></div>
+  <div class="row mt16">
+    <button id="btnLogin">Sign in</button>
+    <a href="/register"><button class="secondary" type="button">Register</button></a>
+  </div>
+  <div id="msg" class="mt12 badge"></div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script>
+document.getElementById('btnLogin').addEventListener('click', async () => {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const r = await login(email, password);
+  document.getElementById('msg').textContent = r.ok ? 'Login success. Redirecting…' : (r.message || 'Login failed');
+  if (r.ok) location.href = '/products';
+});
+</script>
+
+<%- include('partials/foot') %>
